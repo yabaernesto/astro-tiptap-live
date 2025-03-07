@@ -18,10 +18,7 @@
     </button>
   </div>
 
-  <div id="notes-list" class="notes-list">
-    <div class="note-item active">Item 1</div>
-    <div class="note-item">Item 2</div>
-  </div>
+  <div id="notes-list" class="notes-list"></div>
 </aside>
 
 <script>
@@ -97,7 +94,7 @@
     overflow-y: auto;
   }
 
-  .note-item {
+  :global(.note-item) {
     padding: 0.75rem 1rem;
     border-bottom: 1px solid var(--border-color);
     cursor: pointer;
@@ -110,8 +107,8 @@
     opacity: 0.7;
   }
 
-  .note-item.active,
-  .note-item:hover {
+  :global(.note-item.active),
+  :global(.note-item:hover) {
     opacity: 1;
     background-color: color-mix(
       in srgb,
@@ -120,7 +117,7 @@
     );
   }
 
-  .note-item.active {
+  :global(.note-item.active) {
     font-weight: 500;
   }
 </style>

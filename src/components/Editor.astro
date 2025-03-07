@@ -5,14 +5,22 @@
 <script>
   import { Editor } from "@tiptap/core";
   import StarterKit from "@tiptap/starter-kit";
+  import { getNoteId, updateNotesList } from "../functions/notes";
+
+  const noteId = getNoteId();
+  const storageKey = `note-${noteId}`;
 
   new Editor({
     element: document.getElementById("editor-container")!,
     extensions: [StarterKit],
-    content: "<h1>Nova nota</h1>",
+    content: localStorage.getItem(storageKey) || "<h1>Nova nota</h1>",
     autofocus: true,
     onUpdate: ({ editor }) => {
       firstLineIsH1(editor);
+
+      const content = editor.getHTML();
+      localStorage.setItem(storageKey, content);
+      updateNotesList();
     },
   });
 
@@ -28,6 +36,8 @@
       editor.commands.toggleHeading({ level: 1 });
     }
   }
+
+  updateNotesList();
 </script>
 
 <style>
