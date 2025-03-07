@@ -5,6 +5,7 @@
 <script>
   import { Editor } from "@tiptap/core";
   import StarterKit from "@tiptap/starter-kit";
+  import Image from "@tiptap/extension-image";
   import { getNoteId, updateNotesList } from "../functions/notes";
 
   const noteId = getNoteId();
@@ -12,7 +13,13 @@
 
   new Editor({
     element: document.getElementById("editor-container")!,
-    extensions: [StarterKit],
+    extensions: [
+      StarterKit,
+      Image.configure({
+        allowBase64: true,
+        inline: true,
+      }),
+    ],
     content: localStorage.getItem(storageKey) || "<h1>Nova nota</h1>",
     autofocus: true,
     onUpdate: ({ editor }) => {
@@ -85,5 +92,10 @@
 
   :global(.ProseMirror hr) {
     border-color: var(--border-color);
+  }
+
+  :global(.ProseMirror img) {
+    max-width: 100%;
+    height: auto;
   }
 </style>
