@@ -23,7 +23,9 @@
 
 <script>
   import { ulid } from "ulid";
+  import { removeNote } from "../functions/notes";
   import { createIcons, Trash, FilePlus } from "lucide";
+
   createIcons({
     icons: {
       Trash,
@@ -38,7 +40,7 @@
   });
 
   document.getElementById("remove-note")?.addEventListener("click", () => {
-    alert("Clicou!");
+    removeNote();
   });
 </script>
 

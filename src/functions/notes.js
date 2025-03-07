@@ -62,3 +62,17 @@ export function updateNotesList() {
     notesList.append(noteElement);
   }
 }
+
+export function removeNote() {
+  const noteId = getNoteId();
+  if (confirm("Deseja realmente excluir?")) {
+    localStorage.removeItem(`note-${noteId}`);
+    updateNotesList();
+
+    const notes = getAllNotes();
+    if (notes.length > 0) {
+      window.location.hash = notes[0].id;
+      window.location.reload();
+    }
+  }
+}
