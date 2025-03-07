@@ -19,17 +19,29 @@
   </div>
 
   <div id="notes-list" class="notes-list">
-    <div class="note-item">Item 1</div>
+    <div class="note-item active">Item 1</div>
+    <div class="note-item">Item 2</div>
   </div>
 </aside>
 
 <script>
+  import { ulid } from "ulid";
   import { createIcons, Trash, FilePlus } from "lucide";
   createIcons({
     icons: {
       Trash,
       FilePlus,
     },
+  });
+
+  document.getElementById("new-note")?.addEventListener("click", () => {
+    const noteId = ulid();
+    window.location.hash = noteId;
+    window.location.reload();
+  });
+
+  document.getElementById("remove-note")?.addEventListener("click", () => {
+    alert("Clicou!");
   });
 </script>
 
@@ -71,7 +83,7 @@
     opacity: 1;
   }
 
-  .remove-note-btn {
+  .remove-note-btn:hover {
     color: red;
   }
 
@@ -106,5 +118,9 @@
       rgb(255 255 255 / 0.3),
       var(--color-bg)
     );
+  }
+
+  .note-item.active {
+    font-weight: 500;
   }
 </style>
