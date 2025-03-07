@@ -2,6 +2,34 @@
   <div id="editor-container"></div>
 </div>
 
+<script>
+  import { Editor } from "@tiptap/core";
+  import StarterKit from "@tiptap/starter-kit";
+
+  new Editor({
+    element: document.getElementById("editor-container")!,
+    extensions: [StarterKit],
+    content: "<h1>Nova nota</h1>",
+    autofocus: true,
+    onUpdate: ({ editor }) => {
+      firstLineIsH1(editor);
+    },
+  });
+
+  function firstLineIsH1(editor: Editor) {
+    const json = editor.getJSON();
+
+    if (
+      json.content &&
+      json.content.length > 0 &&
+      json.content[0].type !== "heading"
+    ) {
+      editor.commands.setNodeSelection(0);
+      editor.commands.toggleHeading({ level: 1 });
+    }
+  }
+</script>
+
 <style>
   .editor-area {
     flex: 1;
@@ -18,5 +46,34 @@
   #editor-container {
     flex: 1;
     padding: 0 15vw;
+  }
+
+  /* Estilos para o editor TipTap */
+  :global(.ProseMirror) {
+    outline: none;
+    min-height: 200px;
+  }
+
+  :global(.ProseMirror) {
+    margin: 0.5em 0;
+  }
+
+  :global(.ProseMirror h1, .ProseMirror h2, .ProseMirror h3) {
+    margin: 1em 0 0.5em;
+  }
+
+  :global(.ProseMirror ul, .ProseMirror ol) {
+    margin-left: 1.5rem;
+  }
+
+  :global(.ProseMirror blockquote) {
+    border-left: 3px solid var(--border-color);
+    padding-left: 1em;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  :global(.ProseMirror hr) {
+    border-color: var(--border-color);
   }
 </style>
